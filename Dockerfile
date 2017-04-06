@@ -22,37 +22,57 @@ RUN \
 # Define commonly used JAVA_HOME variable
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
-#RUN rm /bin/sh && ln -s /bin/bash /bin/sh
-#RUN apt-get install -y dialog
-#RUN DEBIAN_FRONTEND=noninteractive
-#RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
-ENV HOSTNAME openmrs
-RUN echo openmrs >> /etc/hosts
+ENV OPENMRS_HOME="${CATALINA_HOME}/.OpenMRS"
+ENV OPENMRS_MODULES="${OPENMRS_HOME}/modules"
+ENV OPENMRS_PLATFORM_URL="http://sourceforge.net/projects/openmrs/files/releases/OpenMRS_Platform_1.11.7/openmrs.war/download"
+#ENV OPENMRS_PLATFORM_URL="https://sourceforge.net/projects/openmrs/files/releases/OpenMRS_Platform_2.0.1/openmrs.war/download"
+#ENV OPENMRS_PLATFORM_URL="https://openmrs.jfrog.io/openmrs/releases/org/openmrs/web/openmrs-webapp/2.0.0/openmrs-webapp-2.0.0.war"
 
-RUN \
-  add-apt-repository -y ppa:openhie/release && \ 
-  apt-get update && \
-  apt-get -y install python-software-properties debconf-utils unzip && \
-  apt-get update
-#USER root
+# Install Tomcat
+ENV CATALINA_HOME /usr/local/tomcat
+ENV PATH $CATALINA_HOME/bin:$PATH
+RUN mkdir -p "$CATALINA_HOME"
+WORKDIR $CATALINA_HOME
+ 
+# see https://www.apache.org/dist/tomcat/tomcat-8/KEYS
+ENV GPG_KEYS 05AB33110949707C93A279E3D3EFE6B686867BA6 07E48665A34DCAFAE522E5E6266191C37C037D42 47309207D818FFD8DCD3F83F1931D684307A10A5 541FBE7D8F78B25E055DDEE13C370389288584E7 61B832AC2F1C5A90F0F9B00A1C506407564C17A3 713DA88BE50911535FE716F5208B0AB1D63011C7 79F7026C690BAA50B92CD8B66A3AD3F4F22C4FED 9BA44C2621385CB966EBA586F72C284D731FABEE A27677289986DB50844682F8ACB77FC2E86E29AC A9C5DF4D22E99998D9875A5110C01C5A2F6059E7 DCFD35E0BF8CA7344752DE8B6FB21E8933C60243 F3A04C595DB5B6A5F1ECA43E3B7BBB100D811BBE F7DA48BB64BCB84ECBA7EE6935CD23C10D498E23
+RUN set -ex; \
+	for key in $GPG_KEYS; do \
+		gpg --keyserver ha.pool.sks-keyservers.net --recv-keys "$key"; \
+	done
 
-RUN \
-  echo "openshr openshr/mysqlHost string localhost" | debconf-set-selections && \
-  echo "openshr openshr/mysqlPort string 3306" | debconf-set-selections && \
-  echo "openshr openshr/mysqlUser string admin" | debconf-set-selections && \
-  echo "openshr openshr/mysqlPass string OpenMRS123" | debconf-set-selections && \
-  echo "mysql-server mysql-server/root_password password password" | debconf-set-selections && \
-  echo "mysql-server mysql-server/root_password_again password password" | debconf-set-selections && \
-  echo "openshr openshr/mysqlDBExists boolean false" | debconf-set-selections && \
-  echo "openshr openshr/mysqlDBNameNew string openshr" | debconf-set-selections  && \
-  echo "openshr openshr/psqlDBExists boolean false" | debconf-set-selections && \
-  echo "openshr openshr/psqlHost string localhost" | debconf-set-selections && \
-  echo "openshr openshr/psqlPort string 5432" | debconf-set-selections
+ENV TOMCAT_MAJOR 8
+ENV TOMCAT_VERSION 8.5.13
+ENV TOMCAT_TGZ_URL https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
 
-RUN apt-get install -y openshr
+RUN set -x \
+    && curl -fSL "$TOMCAT_TGZ_URL" -o tomcat.tar.gz \
+    && curl -fSL "$TOMCAT_TGZ_URL.asc" -o tomcat.tar.gz.asc \
+    && gpg --verify tomcat.tar.gz.asc \
+    && tar -xvf tomcat.tar.gz --strip-components=1 \
+    && rm bin/*.bat \
+    && rm tomcat.tar.gz*
+
+# Install dockerize
+ENV DOCKERIZE_VERSION v0.2.0
+RUN curl -L "https://github.com/jwilder/dockerize/releases/download/${DOCKERIZE_VERSION}/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz" -o "/tmp/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz" \
+    && tar -C /usr/local/bin -xzvf "/tmp/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz"
+
+# Install openmrs
+RUN curl -L ${OPENMRS_PLATFORM_URL} \
+         -o ${CATALINA_HOME}/webapps/openmrs.war \
+    && mkdir -p ${OPENMRS_MODULES}
+
+ADD openmrs-runtime.properties.tmpl "${CATALINA_HOME}/openmrs-runtime.properties.tmpl"
+ADD setenv.sh.tmpl "${CATALINA_HOME}/bin/setenv.sh.tmpl"
+
+
+#RUN apt-get install -y openshr
 
 #EXPOSE 8080
 
 # Define default command.
-CMD ["bash"]
+#CMD ["bash"]
 
+# Run openmrs using dockerize
+CMD ["dockerize","-template","/usr/local/tomcat/bin/setenv.sh.tmpl:/usr/local/tomcat/bin/setenv.sh","-template","/usr/local/tomcat/openmrs-runtime.properties.tmpl:/usr/local/tomcat/openmrs-runtime.properties","-wait","tcp://db:3306","-timeout","130s","catalina.sh","run"]
