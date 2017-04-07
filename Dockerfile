@@ -75,6 +75,10 @@ RUN curl -L "https://github.com/jembi/openmrs-module-shr-atna/releases/download/
  && curl -L "https://github.com/jembi/openmrs-module-shr-odd/releases//v1.0.0/shr-odd-1.0.0.omod" \
          -o ${OPENMRS_MODULES}/shr-odd-1.0.0.omod
 
+# Load DATABASE script file
+RUN curl -L "https://s3.amazonaws.com/openshr/openmrs.sql.gz" \
+         -o openmrs.sql.gz \
+    && gunzip openmrs.sql.gz
 
 # Expose the openmrs directory as a volume
 VOLUME /root/.OpenMRS/
