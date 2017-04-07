@@ -22,7 +22,7 @@ RUN \
 # Define commonly used JAVA_HOME variable
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
 
-ENV OPENMRS_HOME="${CATALINA_HOME}/.OpenMRS"
+ENV OPENMRS_HOME="/root/.OpenMRS"
 ENV OPENMRS_MODULES="${OPENMRS_HOME}/modules"
 ENV OPENMRS_PLATFORM_URL="http://sourceforge.net/projects/openmrs/files/releases/OpenMRS_Platform_1.11.7/openmrs.war/download"
 #ENV OPENMRS_PLATFORM_URL="https://sourceforge.net/projects/openmrs/files/releases/OpenMRS_Platform_2.0.1/openmrs.war/download"
@@ -62,6 +62,22 @@ RUN curl -L "https://github.com/jwilder/dockerize/releases/download/${DOCKERIZE_
 RUN curl -L ${OPENMRS_PLATFORM_URL} \
          -o ${CATALINA_HOME}/webapps/openmrs.war \
     && mkdir -p ${OPENMRS_MODULES}
+
+# Load the SHR openmrs modules
+RUN curl -L "https://github.com/jembi/openmrs-module-shr-atna/releases/download/v1.0.0/shr-atna-1.0.0.omod" \
+         -o ${OPENMRS_MODULES}/shr-atna-1.0.0.omod \
+ && curl -L "https://github.com/jembi/openmrs-module-shr-contenthandler/releases/download/v3.0.0/shr-contenthandler-3.0.0.omod" \
+         -o ${OPENMRS_MODULES}/shr-contenthandler-3.0.0.omod \
+ && curl -L "https://github.com/jembi/openmrs-module-shr-xds-b-repository/releases/download/v1.1.0/xds-b-repository-1.1.0.omod" \
+         -o ${OPENMRS_MODULES}/xds-b-repository-1.1.0.omod \
+ && curl -L "https://github.com/jembi/openmrs-module-shr-cdahandler/releases/download/v1.0.0/shr-cdahandler-1.0.0.omod" \
+         -o ${OPENMRS_MODULES}/shr-cdahandler-1.0.0.omod \
+ && curl -L "https://github.com/jembi/openmrs-module-shr-odd/releases//v1.0.0/shr-odd-1.0.0.omod" \
+         -o ${OPENMRS_MODULES}/shr-odd-1.0.0.omod
+
+
+# Expose the openmrs directory as a volume
+VOLUME /root/.OpenMRS/
 
 ADD openmrs-runtime.properties.tmpl "${CATALINA_HOME}/openmrs-runtime.properties.tmpl"
 ADD setenv.sh.tmpl "${CATALINA_HOME}/bin/setenv.sh.tmpl"
