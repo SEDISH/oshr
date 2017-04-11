@@ -16,7 +16,7 @@ services:
       POSTGRES_DB: openxds
       POSTGRES_PASSWORD: openxds
   openmrs:
-    image: openmrs-platform
+    image: uwitech/oshr
     ports:
       - "8080:8080"
     container_name: openmrs-platform
