@@ -1,8 +1,8 @@
 version: "2"
 services:
   db:
-    image: openmrs-platform-mysql
-    container_name: &db openmrs-platform-mysql
+    image: openmrs-mysql
+    container_name: &db openmrs-mysql
     environment:
       MYSQL_ROOT_PASSWORD: shr
       MYSQL_USER: &openmrs_db_user admin
@@ -10,7 +10,7 @@ services:
       MYSQL_DATABASE: &openmrs_db openmrs
   postgresql:
     image: uwitech/postgresql
-    container_name: &postgresql openmrs-platform-postgresql
+    container_name: &postgresql openmrs-postgresql
     environment:
       POSTGRES_USER: openxds
       POSTGRES_DB: openxds
@@ -24,9 +24,13 @@ services:
       - db
       - postgresql
     environment:
+      POSTGRES_USER: openxds
+      POSTGRES_PASSWORD: openxds
       MYSQL_ROOT_PASSWORD: shr
       MYSQL_USER: *openmrs_db_user
       MYSQL_PASSWORD: *openmrs_db_password
       MYSQL_DATABASE: *openmrs_db
       MYSQL_HOST: *db
       MYSQL_PORT: 3306
+    volumes:
+      - ./openmrs:/root/.OpenMRS
