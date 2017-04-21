@@ -5,22 +5,24 @@
 
 FROM uwitech/ohie-base
 
+
 # Install dependencies
 RUN apt-get update && \
 apt-get install -y git build-essential curl wget software-properties-common
 
+
 # Install Java
 RUN \
-  echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
+  echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
   add-apt-repository -y ppa:webupd8team/java && \
   apt-get update && \
-  apt-get install -y oracle-java8-installer && \
+  apt-get install -y oracle-java7-installer && \
   rm -rf /var/lib/apt/lists/* && \
-  rm -rf /var/cache/oracle-jdk8-installer
+  rm -rf /var/cache/oracle-jdk7-installer
 
 
 # Define commonly used JAVA_HOME variable
-ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+ENV JAVA_HOME /usr/lib/jvm/java-7-oracle
 
 
 # Install Tomcat
@@ -72,7 +74,7 @@ RUN mkdir -p "${HOME_SHARE}/openxds/" \
 # Install OpenMRS
 ENV OPENMRS_HOME="/root/.OpenMRS"
 ENV OPENMRS_MODULES="${OPENMRS_HOME}/modules"
-ENV OPENMRS_PLATFORM_URL="http://sourceforge.net/projects/openmrs/files/releases/OpenMRS_Platform_1.11.7/openmrs.war/download"
+ENV OPENMRS_PLATFORM_URL="https://sourceforge.net/projects/openmrs/files/releases/OpenMRS_Platform_1.11.3/openmrs.war/download"
 ENV TEMP_MODULES /root/temp/modules
 
 RUN curl -L ${OPENMRS_PLATFORM_URL} \
@@ -89,8 +91,8 @@ RUN curl -L "https://github.com/jembi/openmrs-module-shr-atna/releases/download/
          -o ${TEMP_MODULES}/xds-b-repository-0.4.5.omod \
  && curl -L "https://github.com/jembi/openmrs-module-shr-cdahandler/releases/download/v0.6.0/shr-cdahandler-0.6.0.omod" \
          -o ${TEMP_MODULES}/shr-cdahandler-0.6.0.omod \
- && curl -L "https://github.com/jembi/openmrs-module-shr-odd/releases/download/v1.0.0/shr-odd-1.0.0.omod" \
-         -o ${TEMP_MODULES}/shr-odd-1.0.0.omod \
+ && curl -L "https://github.com/jembi/openmrs-module-shr-odd/releases/download/v0.5.1/shr-odd-0.5.1.omod" \
+         -o ${TEMP_MODULES}/shr-odd-0.5.1.omod \
  && curl -L "https://modules.openmrs.org/modulus/api/releases/1138/download/webservices.rest-omod-2.9.omod" \
          -o ${TEMP_MODULES}/webservices.rest-omod-2.9.omod
 
@@ -99,7 +101,6 @@ RUN curl -L "https://s3.amazonaws.com/openshr/openmrs.sql.gz" \
          -o openmrs.sql.gz \
     && gunzip openmrs.sql.gz
 
-#COPY openmrs_1.11.7_2.3.1.sql openmrs1.sql
 
 ADD run.sh /root/run.sh
 RUN chmod +x /root/run.sh
