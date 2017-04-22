@@ -74,7 +74,7 @@ RUN mkdir -p "${HOME_SHARE}/openxds/" \
 # Install OpenMRS
 ENV OPENMRS_HOME="/root/.OpenMRS"
 ENV OPENMRS_MODULES="${OPENMRS_HOME}/modules"
-ENV OPENMRS_PLATFORM_URL="https://sourceforge.net/projects/openmrs/files/releases/OpenMRS_Platform_1.11.3/openmrs.war/download"
+ENV OPENMRS_PLATFORM_URL="https://sourceforge.net/projects/openmrs/files/releases/OpenMRS_Platform_1.11.7/openmrs.war/download"
 ENV TEMP_MODULES /root/temp/modules
 
 RUN curl -L ${OPENMRS_PLATFORM_URL} \
@@ -113,9 +113,5 @@ ADD openmrs-runtime.properties.tmpl "${CATALINA_HOME}/openmrs-runtime.properties
 ADD setenv.sh.tmpl "${CATALINA_HOME}/bin/setenv.sh.tmpl"
 
 
-#RUN apt-get install -y openshr
-
-#EXPOSE 8090
-
 # Run openmrs using dockerize
-CMD ["dockerize","-template","/usr/local/tomcat/bin/setenv.sh.tmpl:/usr/local/tomcat/bin/setenv.sh","-template","/usr/local/tomcat/openmrs-runtime.properties.tmpl:/usr/local/tomcat/openmrs-runtime.properties","-wait","tcp://db:3306","/root/run.sh", "run"]
+CMD ["dockerize","-template","/usr/local/tomcat/bin/setenv.sh.tmpl:/usr/local/tomcat/bin/setenv.sh","-template","/usr/local/tomcat/openmrs-runtime.properties.tmpl:/usr/local/tomcat/openmrs-runtime.properties","-wait","tcp://db:3306","-timeout","30s","/root/run.sh", "run"]

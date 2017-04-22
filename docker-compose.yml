@@ -20,7 +20,7 @@ services:
     ports:
       - "8080:8080"
     container_name: openmrs-platform
-    depends_on:
+    links:
       - db
       - postgresql
     environment:
@@ -32,5 +32,3 @@ services:
       MYSQL_DATABASE: *openmrs_db
       MYSQL_HOST: *db
       MYSQL_PORT: 3306
-    volumes:
-      - ./openmrs:/root/.OpenMRS

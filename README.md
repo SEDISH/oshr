@@ -1,2 +1,6 @@
 # oshr
-OpenSHR
+OpenSHR 
+
+To run execute:
+
+docker-compose up
