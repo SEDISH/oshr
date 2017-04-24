@@ -28,7 +28,7 @@ else
 	mkdir -pv $OPENMRS_MODULES
 	cp /root/temp/modules/*.omod $OPENMRS_MODULES
 	echo "Modules copied."
-	export JAVA_OPTS="-Dfile.encoding=UTF-8 -server -Xms1024m -Xmx2048m -DOPENMRS_APPLICATION_DATA_DIRECTORY=/usr/share/openshr/openmrs"
+	export JAVA_OPTS="-Dfile.encoding=UTF-8 -server -Xms512m -Xmx1024m -DOPENMRS_APPLICATION_DATA_DIRECTORY=/usr/share/openshr/openmrs"
 
 
 	echo "### Init database for openmrs ###"

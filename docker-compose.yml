@@ -1,6 +1,6 @@
 version: "2"
 services:
-  db:
+  openmrs-mysql-db:
     image: uwitech/mysql
     container_name: &db openmrs-mysql
     environment:
@@ -21,7 +21,7 @@ services:
       - "8080:8080"
     container_name: openmrs-platform
     depends_on:
-      - db
+      - openmrs-mysql-db
       - postgresql
     environment:
       POSTGRES_USER: openxds

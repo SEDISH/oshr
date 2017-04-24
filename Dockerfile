@@ -114,4 +114,4 @@ ADD setenv.sh.tmpl "${CATALINA_HOME}/bin/setenv.sh.tmpl"
 
 
 # Run openmrs using dockerize
-CMD ["dockerize","-template","/usr/local/tomcat/bin/setenv.sh.tmpl:/usr/local/tomcat/bin/setenv.sh","-template","/usr/local/tomcat/openmrs-runtime.properties.tmpl:/usr/local/tomcat/openmrs-runtime.properties","-wait","tcp://db:3306","-timeout","200s","/root/run.sh", "run"]
+CMD ["dockerize","-template","/usr/local/tomcat/bin/setenv.sh.tmpl:/usr/local/tomcat/bin/setenv.sh","-template","/usr/local/tomcat/openmrs-runtime.properties.tmpl:/usr/local/tomcat/openmrs-runtime.properties","-wait","tcp://openmrs-mysql-db:3306","-timeout","200s","/root/run.sh", "run"]
