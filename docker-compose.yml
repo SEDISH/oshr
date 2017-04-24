@@ -1,7 +1,7 @@
 version: "2"
 services:
   db:
-    image: openmrs-mysql
+    image: uwitech/mysql
     container_name: &db openmrs-mysql
     environment:
       MYSQL_ROOT_PASSWORD: shr
@@ -20,7 +20,7 @@ services:
     ports:
       - "8080:8080"
     container_name: openmrs-platform
-    links:
+    depends_on:
       - db
       - postgresql
     environment:
