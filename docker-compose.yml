@@ -8,13 +8,33 @@ services:
       MYSQL_USER: &openmrs_db_user admin
       MYSQL_PASSWORD: &openmrs_db_password Admin123
       MYSQL_DATABASE: &openmrs_db openmrs
-  postgresql:
+  postgresql-openxds:
     image: uwitech/postgresql
-    container_name: &postgresql openmrs-postgresql
+    container_name: postgresql-openxds
+    ports:
+      - 5432:5432
     environment:
-      POSTGRES_USER: openxds
-      POSTGRES_DB: openxds
-      POSTGRES_PASSWORD: openxds
+      - POSTGRES_USER=openxds
+      - POSTGRES_DB=openxds
+      - POSTGRES_PASSWORD=openxds
+  postgresql-log2:
+    image: uwitech/postgresql
+    container_name: postgresql-log2
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_USER=logs
+      - POSTGRES_DB=log2
+      - POSTGRES_PASSWORD=xdslogs
+  openxds:
+    image: uwitech/openxds
+    ports:
+      - "8010:8010"
+      - "8020:8020"
+    container_name: openxds
+    depends_on:
+      - postgresql-openxds
+      - postgresql-log2
   openmrs:
     image: uwitech/oshr
     ports:
@@ -22,7 +42,7 @@ services:
     container_name: openmrs-platform
     depends_on:
       - openmrs-mysql-db
-      - postgresql
+      - openxds
     environment:
       POSTGRES_USER: openxds
       POSTGRES_PASSWORD: openxds
