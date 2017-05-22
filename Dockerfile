@@ -72,24 +72,21 @@ RUN curl -L ${OPENMRS_PLATFORM_URL} \
 
 
 # Load the SHR OpenMRS modules
-RUN curl -L "https://github.com/jembi/openmrs-module-shr-atna/releases/download/v0.5.0/shr-atna-0.5.0.omod" \
-         -o ${TEMP_MODULES}/shr-atna-0.5.0.omod \
- && curl -L "https://github.com/jembi/openmrs-module-shr-contenthandler/releases/download/v2.2.0/shr-contenthandler-2.2.0.omod" \
-         -o ${TEMP_MODULES}/shr-contenthandler-2.2.0.omod \
- && curl -L "https://github.com/jembi/openmrs-module-shr-xds-b-repository/releases/download/v0.4.5/xds-b-repository-0.4.5.omod" \
-         -o ${TEMP_MODULES}/xds-b-repository-0.4.5.omod \
- && curl -L "https://github.com/jembi/openmrs-module-shr-cdahandler/releases/download/v0.6.0/shr-cdahandler-0.6.0.omod" \
-         -o ${TEMP_MODULES}/shr-cdahandler-0.6.0.omod \
- && curl -L "https://github.com/jembi/openmrs-module-shr-odd/releases/download/v0.5.1/shr-odd-0.5.1.omod" \
-         -o ${TEMP_MODULES}/shr-odd-0.5.1.omod \
- && curl -L "https://modules.openmrs.org/modulus/api/releases/1138/download/webservices.rest-omod-2.9.omod" \
-         -o ${TEMP_MODULES}/webservices.rest-omod-2.9.omod
+
+RUN curl -L "https://github.com/jembi/openmrs-module-shr-atna/releases/download/v1.0.0/shr-atna-1.0.0.omod" \
+         -o ${TEMP_MODULES}/shr-atna-1.0.0.omod
+
+ADD modules/webservices.rest-2.12.omod ${TEMP_MODULES}/webservices.rest-2.12.omod
+ADD modules/shr-contenthandler-3.0.0.omod ${TEMP_MODULES}/shr-contenthandler-3.0.0.omod 
+ADD modules/openhie-client-0.1-SNAPSHOT.omod ${TEMP_MODULES}/openhie-client-0.1-SNAPSHOT.omod 
+ADD modules/uiframework-omod-3.4.omod ${TEMP_MODULES}/uiframework-omod-3.4.omod
+
+
 
 # Load DATABASE script file
 RUN curl -L "https://s3.amazonaws.com/openshr/openmrs.sql.gz" \
          -o openmrs.sql.gz \
     && gunzip openmrs.sql.gz
-
 
 ADD run.sh /root/run.sh
 RUN chmod +x /root/run.sh
