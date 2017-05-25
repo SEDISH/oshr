@@ -36,8 +36,13 @@ else
 	echo "Create database openmrs from file < openmrs.sql"
 	mysql -u root -pshr openmrs < openmrs.sql
 
+	echo "Update database openmrs with SHR configuration from file < openshr-configuration.sql"
+	mysql -u root -pshr openmrs < openshr-configuration.sql
+
+
 	echo "Finish init database"
-	rm openmrs.sql
+	rm openmrs.sql	
+	rm openshr-configuration.sql
 	sleep 5
 
 fi

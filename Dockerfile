@@ -78,7 +78,7 @@ RUN curl -L "https://github.com/jembi/openmrs-module-shr-atna/releases/download/
 
 ADD modules/webservices.rest-2.12.omod ${TEMP_MODULES}/webservices.rest-2.12.omod
 ADD modules/shr-contenthandler-3.0.0.omod ${TEMP_MODULES}/shr-contenthandler-3.0.0.omod 
-ADD modules/openhie-client-0.1-SNAPSHOT.omod ${TEMP_MODULES}/openhie-client-0.1-SNAPSHOT.omod 
+ADD modules/openhie-client-0.5.omod ${TEMP_MODULES}/openhie-client-0.5.omod 
 ADD modules/uiframework-omod-3.4.omod ${TEMP_MODULES}/uiframework-omod-3.4.omod
 ADD modules/exportccd-1.0.omod ${TEMP_MODULES}/exportccd-1.0.omod
 ADD modules/rgccd-1.0.2.omod ${TEMP_MODULES}/rgccd-1.0.2.omod
@@ -87,6 +87,8 @@ ADD modules/rgccd-1.0.2.omod ${TEMP_MODULES}/rgccd-1.0.2.omod
 RUN curl -L "https://s3.amazonaws.com/openshr/openmrs.sql.gz" \
          -o openmrs.sql.gz \
     && gunzip openmrs.sql.gz
+
+ADD openshr-configuration.sql openshr-configuration.sql
 
 ADD run.sh /root/run.sh
 RUN chmod +x /root/run.sh
