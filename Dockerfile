@@ -8,21 +8,7 @@ FROM uwitech/ohie-base
 
 # Install dependencies
 RUN apt-get update && \
-apt-get install -y git build-essential curl wget software-properties-common
-
-
-# Install Java
-RUN \
-  echo oracle-java7-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
-  add-apt-repository -y ppa:webupd8team/java && \
-  apt-get update && \
-  apt-get install -y oracle-java7-installer && \
-  rm -rf /var/lib/apt/lists/* && \
-  rm -rf /var/cache/oracle-jdk7-installer
-
-
-# Define commonly used JAVA_HOME variable
-ENV JAVA_HOME /usr/lib/jvm/java-7-oracle
+apt-get install -y git build-essential curl wget software-properties-common  openjdk-7-jre
 
 
 # Install Tomcat
