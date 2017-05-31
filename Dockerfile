@@ -66,8 +66,6 @@ ADD modules/webservices.rest-2.12.omod ${TEMP_MODULES}/webservices.rest-2.12.omo
 ADD modules/shr-contenthandler-3.0.0.omod ${TEMP_MODULES}/shr-contenthandler-3.0.0.omod 
 ADD modules/openhie-client-0.5.omod ${TEMP_MODULES}/openhie-client-0.5.omod 
 ADD modules/uiframework-omod-3.4.omod ${TEMP_MODULES}/uiframework-omod-3.4.omod
-ADD modules/exportccd-1.0.omod ${TEMP_MODULES}/exportccd-1.0.omod
-ADD modules/rgccd-1.0.2.omod ${TEMP_MODULES}/rgccd-1.0.2.omod
 
 # Load DATABASE script file
 RUN curl -L "https://s3.amazonaws.com/openshr/openmrs.sql.gz" \
