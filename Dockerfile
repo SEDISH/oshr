@@ -10,11 +10,13 @@ FROM uwitech/ohie-base
 RUN apt-get update && \
 apt-get install -y git build-essential curl wget software-properties-common  openjdk-7-jre
 
-
 # Install Tomcat
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
-RUN mkdir -p "$CATALINA_HOME"
+RUN mkdir -p "$CATALINA_HOME" && \
+  mkdir /var/log/xdslog && \
+  chmod 777 /var/log/xdslog
+
 WORKDIR $CATALINA_HOME
 
 ENV GPG_KEYS 05AB33110949707C93A279E3D3EFE6B686867BA6 07E48665A34DCAFAE522E5E6266191C37C037D42 47309207D818FFD8DCD3F83F1931D684307A10A5 541FBE7D8F78B25E055DDEE13C370389288584E7 61B832AC2F1C5A90F0F9B00A1C506407564C17A3 713DA88BE50911535FE716F5208B0AB1D63011C7 79F7026C690BAA50B92CD8B66A3AD3F4F22C4FED 9BA44C2621385CB966EBA586F72C284D731FABEE A27677289986DB50844682F8ACB77FC2E86E29AC A9C5DF4D22E99998D9875A5110C01C5A2F6059E7 DCFD35E0BF8CA7344752DE8B6FB21E8933C60243 F3A04C595DB5B6A5F1ECA43E3B7BBB100D811BBE F7DA48BB64BCB84ECBA7EE6935CD23C10D498E23
@@ -61,9 +63,16 @@ RUN curl -L ${OPENMRS_PLATFORM_URL} \
 
 RUN curl -L "https://github.com/jembi/openmrs-module-shr-atna/releases/download/v1.0.0/shr-atna-1.0.0.omod" \
          -o ${TEMP_MODULES}/shr-atna-1.0.0.omod
+RUN curl -L "https://github.com/jembi/openmrs-module-shr-contenthandler/releases/download/v2.2.0/shr-contenthandler-2.2.0.omod" \
+         -o ${TEMP_MODULES}/shr-contenthandler-2.2.0.omod
+RUN curl -L "https://github.com/jembi/openmrs-module-shr-xds-b-repository/releases/download/v0.4.5/xds-b-repository-0.4.5.omod" \
+         -o ${TEMP_MODULES}/xds-b-repository-0.4.5.omod
+RUN curl -L "https://github.com/jembi/openmrs-module-shr-cdahandler/releases/download/v0.6.0/shr-cdahandler-0.6.0.omod" \
+         -o ${TEMP_MODULES}/shr-cdahandler-0.6.0.omod
+RUN curl -L "https://github.com/jembi/openmrs-module-shr-odd/releases/download/v0.5.1/shr-odd-0.5.1.omod" \
+         -o ${TEMP_MODULES}/shr-odd-0.5.1.omod
 
 ADD modules/webservices.rest-2.12.omod ${TEMP_MODULES}/webservices.rest-2.12.omod
-ADD modules/shr-contenthandler-3.0.0.omod ${TEMP_MODULES}/shr-contenthandler-3.0.0.omod 
 ADD modules/openhie-client-0.5.omod ${TEMP_MODULES}/openhie-client-0.5.omod 
 ADD modules/uiframework-omod-3.4.omod ${TEMP_MODULES}/uiframework-omod-3.4.omod
 
