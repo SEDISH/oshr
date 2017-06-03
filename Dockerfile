@@ -69,8 +69,8 @@ RUN curl -L "https://github.com/jembi/openmrs-module-shr-xds-b-repository/releas
          -o ${TEMP_MODULES}/xds-b-repository-0.4.5.omod
 RUN curl -L "https://github.com/jembi/openmrs-module-shr-cdahandler/releases/download/v0.6.0/shr-cdahandler-0.6.0.omod" \
          -o ${TEMP_MODULES}/shr-cdahandler-0.6.0.omod
-RUN curl -L "https://github.com/jembi/openmrs-module-shr-odd/releases/download/v0.5.1/shr-odd-0.5.1.omod" \
-         -o ${TEMP_MODULES}/shr-odd-0.5.1.omod
+RUN curl -L "https://github.com/jembi/openmrs-module-shr-odd/releases/download/v1.0.0/shr-odd-1.0.0.omod" \
+         -o ${TEMP_MODULES}/shr-odd-1.0.0.omod
 
 ADD modules/webservices.rest-2.12.omod ${TEMP_MODULES}/webservices.rest-2.12.omod
 ADD modules/openhie-client-0.5.omod ${TEMP_MODULES}/openhie-client-0.5.omod 
