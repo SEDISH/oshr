@@ -7,8 +7,7 @@
 --
 
 INSERT IGNORE INTO patient_identifier_type (name, description, format, check_digit, creator, date_created, required, format_description, validator, location_behavior, retired, retired_by, date_retired, retire_reason, uuid, uniqueness_behavior)
-VALUES	('NIST2010','NIST2010 Identifier description',NULL,'0','1','2017-05-25 11:43:01','0',NULL,NULL,NULL,'0',NULL,NULL,NULL,'d8752f79-ab8d-4f4e-8531-4ba4957345de',NULL),
-	('ECID','ECID description',NULL,'0','1','2017-05-25 11:43:24','0',NULL,NULL,NULL,'0',NULL,NULL,NULL,'dd3037f0-0653-4ed2-8999-18e1bbdfae24',NULL);
+VALUES ('ECID','ECID description',NULL,'0','1','2017-05-25 11:43:24','0',NULL,NULL,NULL,'0',NULL,NULL,NULL,'dd3037f0-0653-4ed2-8999-18e1bbdfae24',NULL);
 
 --
 -- OpenSHR Configuration
@@ -61,6 +60,11 @@ ON DUPLICATE KEY UPDATE
 
 INSERT INTO global_property
 VALUES ('xds-b-repository.xdsregistry.url','http://localhost:8010/axis2/services/xdsregistryb','The url of the XDSb registry to use.','c92e9849-a677-4b86-b8be-5a0d2e470009',NULL,NULL,NULL,NULL)
+ON DUPLICATE KEY UPDATE
+  property_value=VALUES(property_value);
+
+INSERT INTO global_property
+VALUES ('shr.id.ecidRoot','2.16.840.1.113883.4.56','Identifies the root of jurisdictional identifiers to use when creating/looking for patients','d4d5f714-5bd9-4548-b31b-e83d6ced2721',NULL,NULL,NULL,NULL)
 ON DUPLICATE KEY UPDATE
   property_value=VALUES(property_value);
 

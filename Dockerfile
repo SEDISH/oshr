@@ -10,6 +10,7 @@ FROM uwitech/ohie-base
 RUN apt-get update && \
 apt-get install -y git build-essential curl wget software-properties-common  openjdk-7-jre
 
+
 # Install Tomcat
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH $CATALINA_HOME/bin:$PATH
@@ -61,18 +62,8 @@ RUN curl -L ${OPENMRS_PLATFORM_URL} \
 
 # Load the SHR OpenMRS modules
 
-RUN curl -L "https://github.com/jembi/openmrs-module-shr-atna/releases/download/v1.0.0/shr-atna-1.0.0.omod" \
-         -o ${TEMP_MODULES}/shr-atna-1.0.0.omod
-RUN curl -L "https://github.com/jembi/openmrs-module-shr-contenthandler/releases/download/v2.2.0/shr-contenthandler-2.2.0.omod" \
-         -o ${TEMP_MODULES}/shr-contenthandler-2.2.0.omod
-RUN curl -L "https://github.com/jembi/openmrs-module-shr-xds-b-repository/releases/download/v0.4.5/xds-b-repository-0.4.5.omod" \
-         -o ${TEMP_MODULES}/xds-b-repository-0.4.5.omod
-RUN curl -L "https://github.com/jembi/openmrs-module-shr-cdahandler/releases/download/v0.6.0/shr-cdahandler-0.6.0.omod" \
-         -o ${TEMP_MODULES}/shr-cdahandler-0.6.0.omod
-RUN curl -L "https://github.com/jembi/openmrs-module-shr-odd/releases/download/v1.0.0/shr-odd-1.0.0.omod" \
-         -o ${TEMP_MODULES}/shr-odd-1.0.0.omod
-
 ADD modules/webservices.rest-2.12.omod ${TEMP_MODULES}/webservices.rest-2.12.omod
+ADD modules/shr-contenthandler-3.0.0.omod ${TEMP_MODULES}/shr-contenthandler-3.0.0.omod 
 ADD modules/openhie-client-0.5.omod ${TEMP_MODULES}/openhie-client-0.5.omod 
 ADD modules/uiframework-omod-3.4.omod ${TEMP_MODULES}/uiframework-omod-3.4.omod
 
