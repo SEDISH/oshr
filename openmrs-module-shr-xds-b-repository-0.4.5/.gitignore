@@ -1,0 +1,9 @@
+api/target
+omod/target
+.settings/
+api/.settings/
+api/target/
+omod/target/
+*.iml
+/openmrs-project
+.idea/
