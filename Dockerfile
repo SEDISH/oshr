@@ -8,8 +8,7 @@ FROM uwitech/ohie-base
 
 # Install dependencies
 RUN apt-get update && \
-apt-get install -y git build-essential curl wget software-properties-common  openjdk-7-jre
-
+apt-get install -y git build-essential curl wget software-properties-common openjdk-7-jre
 
 # Install Tomcat
 ENV CATALINA_HOME /usr/local/tomcat
@@ -63,9 +62,12 @@ RUN curl -L ${OPENMRS_PLATFORM_URL} \
 # Load the SHR OpenMRS modules
 
 ADD modules/webservices.rest-2.12.omod ${TEMP_MODULES}/webservices.rest-2.12.omod
-ADD modules/shr-contenthandler-3.0.0.omod ${TEMP_MODULES}/shr-contenthandler-3.0.0.omod 
-ADD modules/openhie-client-0.5.omod ${TEMP_MODULES}/openhie-client-0.5.omod 
-ADD modules/uiframework-omod-3.4.omod ${TEMP_MODULES}/uiframework-omod-3.4.omod
+ADD modules/shr-atna-0.5.0.omod ${TEMP_MODULES}/shr-atna-0.5.0.omod
+ADD modules/shr-contenthandler-2.2.0.omod ${TEMP_MODULES}/shr-contenthandler-2.2.0.omod
+ADD modules/xds-b-repository-0.4.5.omod ${TEMP_MODULES}/xds-b-repository-0.4.5.omod
+ADD modules/shr-cdahandler-0.6.0.omod ${TEMP_MODULES}/shr-cdahandler-0.6.0.omod
+ADD modules/shr-odd-0.5.1.omod ${TEMP_MODULES}/shr-odd-0.5.1.omod
+ADD modules/openhie-client-0.1-SNAPSHOT.omod ${TEMP_MODULES}/openhie-client-0.1-SNAPSHOT.omod
 
 # Load DATABASE script file
 RUN curl -L "https://s3.amazonaws.com/openshr/openmrs.sql.gz" \
