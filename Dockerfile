@@ -62,6 +62,8 @@ RUN curl -L ${OPENMRS_PLATFORM_URL} \
 # Load the SHR OpenMRS modules
 
 ADD modules/webservices.rest-2.12.omod ${TEMP_MODULES}/webservices.rest-2.12.omod
+ADD modules/uiframework-omod-3.4.omod ${TEMP_MODULES}/uiframework-omod-3.4.omod
+
 ADD modules/shr-atna-0.5.0.omod ${TEMP_MODULES}/shr-atna-0.5.0.omod
 ADD modules/shr-contenthandler-2.2.0.omod ${TEMP_MODULES}/shr-contenthandler-2.2.0.omod
 ADD modules/xds-b-repository-0.4.5.omod ${TEMP_MODULES}/xds-b-repository-0.4.5.omod
