@@ -34,12 +34,12 @@ ON DUPLICATE KEY UPDATE
   property_value=VALUES(property_value);
 
 INSERT INTO global_property
-VALUES ('openhie-client.endpoint.xds.registry','http://localhost:8010/axis2/services/xdsregistryb','Indicates the endpoint on which XDS Registry messages should be routed','a5fe8065-ec77-4b84-959c-ad8c5ebb114e',NULL,NULL,NULL,NULL)
+VALUES ('openhie-client.endpoint.xds.registry','http://openxds:8010/axis2/services/xdsregistryb','Indicates the endpoint on which XDS Registry messages should be routed','a5fe8065-ec77-4b84-959c-ad8c5ebb114e',NULL,NULL,NULL,NULL)
 ON DUPLICATE KEY UPDATE
   property_value=VALUES(property_value);
 
 INSERT INTO global_property
-VALUES ('openhie-client.endpoint.xds.repository','http://localhost:8010/openmrs-standalone/ms/xdsrepository','Indicates the port on which XDS Repository messages should be routed','10a67d53-504a-48ad-83e8-1180f3f799d7',NULL,NULL,NULL,NULL)
+VALUES ('openhie-client.endpoint.xds.repository','http://openxds:8010/openmrs-standalone/ms/xdsrepository','Indicates the port on which XDS Repository messages should be routed','10a67d53-504a-48ad-83e8-1180f3f799d7',NULL,NULL,NULL,NULL)
 ON DUPLICATE KEY UPDATE
   property_value=VALUES(property_value);
 
@@ -54,12 +54,12 @@ ON DUPLICATE KEY UPDATE
   property_value=VALUES(property_value);
 
 INSERT INTO global_property
-VALUES ('xds-b-repository.xdsregistry.url','http://localhost:8010/axis2/services/xdsregistryb','The url of the XDSb registry to use.','c92e9849-a677-4b86-b8be-5a0d2e470009',NULL,NULL,NULL,NULL)
+VALUES ('xds-b-repository.xdsregistry.url','http://openxds:8010/axis2/services/xdsregistryb','The url of the XDSb registry to use.','c92e9849-a677-4b86-b8be-5a0d2e470009',NULL,NULL,NULL,NULL)
 ON DUPLICATE KEY UPDATE
   property_value=VALUES(property_value);
 
 INSERT INTO global_property
-VALUES ('xds-b-repository.xdsregistry.url','http://localhost:8010/axis2/services/xdsregistryb','The url of the XDSb registry to use.','c92e9849-a677-4b86-b8be-5a0d2e470009',NULL,NULL,NULL,NULL)
+VALUES ('xds-b-repository.xdsregistry.url','http://openxds:8010/axis2/services/xdsregistryb','The url of the XDSb registry to use.','c92e9849-a677-4b86-b8be-5a0d2e470009',NULL,NULL,NULL,NULL)
 ON DUPLICATE KEY UPDATE
   property_value=VALUES(property_value);
 
