@@ -17,15 +17,6 @@ services:
       - POSTGRES_USER=openxds
       - POSTGRES_DB=openxds
       - POSTGRES_PASSWORD=openxds
-  postgresql-log2:
-    image: uwitech/postgresql
-    container_name: postgresql-log2
-    ports:
-      - 5433:5432
-    environment:
-      - POSTGRES_USER=logs
-      - POSTGRES_DB=log2
-      - POSTGRES_PASSWORD=xdslogs
   openxds:
     image: uwitech/openxds
     ports:
@@ -34,7 +25,6 @@ services:
     container_name: openxds
     depends_on:
       - postgresql-openxds
-      - postgresql-log2
   openmrs:
     image: uwitech/oshr
     ports:
