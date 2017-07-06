@@ -54,6 +54,11 @@ ON DUPLICATE KEY UPDATE
   property_value=VALUES(property_value);
 
 INSERT INTO global_property
+VALUES ('xds-b-repository.xdsrepository.uniqueId','1.3.6.1.4.1.21367.2010.1.2.1125','The id of this XDSb repository.','59852a1a-cf55-42c4-8dd9-73cfaa79aedf',NULL,NULL,NULL,NULL)
+ON DUPLICATE KEY UPDATE
+  property_value=VALUES(property_value);
+
+INSERT INTO global_property
 VALUES ('xds-b-repository.xdsregistry.url','http://openxds:8010/axis2/services/xdsregistryb','The url of the XDSb registry to use.','c92e9849-a677-4b86-b8be-5a0d2e470009',NULL,NULL,NULL,NULL)
 ON DUPLICATE KEY UPDATE
   property_value=VALUES(property_value);
@@ -67,6 +72,12 @@ INSERT INTO global_property
 VALUES ('shr.id.ecidRoot','2.16.840.1.113883.4.56','Identifies the root of jurisdictional identifiers to use when creating/looking for patients','d4d5f714-5bd9-4548-b31b-e83d6ced2721',NULL,NULL,NULL,NULL)
 ON DUPLICATE KEY UPDATE
   property_value=VALUES(property_value);
+
+INSERT INTO global_property
+VALUES ('shr.id.root', '2.16.840.1.113883.4.56', 'Identifies the root which should be attached to all observations, orders, allergies, etc. in this SHR instance (used for detecting duplicates)', 'e7af7953-450f-4d7c-b709-5b65e0e3dadc', NULL, NULL, NULL, NULL)
+ON DUPLICATE KEY UPDATE
+  property_value=VALUES(property_value);
+
 
 INSERT INTO global_property
 VALUES ('layout.address.format','<org.openmrs.layout.web.address.AddressTemplate>
