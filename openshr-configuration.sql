@@ -14,22 +14,22 @@ VALUES ('ECID','ECID description',NULL,'0','1','2017-05-25 11:43:24','0',NULL,NU
 --
 
 INSERT INTO global_property
-VALUES ('openhie-client.endpoint.pdq','ohie-il','Indicates the endpoint on which PDQ messages should be routed','2ee943c3-6567-4332-ba44-3fa5e5cb93a1',NULL,NULL,NULL,NULL)
+VALUES ('openhie-client.endpoint.pdq','ohie-cr','Indicates the endpoint on which PDQ messages should be routed','2ee943c3-6567-4332-ba44-3fa5e5cb93a1',NULL,NULL,NULL,NULL)
 ON DUPLICATE KEY UPDATE
   property_value=VALUES(property_value);
 
 INSERT INTO global_property
-VALUES ('openhie-client.endpoint.pdq.port','8989','Indicates the port on which PDQ messages should be routed','167e2663-261a-4bce-b1ad-09ef4edc0494',NULL,NULL,NULL,NULL)
+VALUES ('openhie-client.endpoint.pdq.port','3700','Indicates the port on which PDQ messages should be routed','167e2663-261a-4bce-b1ad-09ef4edc0494',NULL,NULL,NULL,NULL)
 ON DUPLICATE KEY UPDATE
   property_value=VALUES(property_value);
 
 INSERT INTO global_property
-VALUES ('openhie-client.endpoint.pix','ohie-il','Indicates the endpoint on which PIX messages should be routed','cbb85ce5-c181-4962-9ce4-021b22734297',NULL,NULL,NULL,NULL)
+VALUES ('openhie-client.endpoint.pix','ohie-cr','Indicates the endpoint on which PIX messages should be routed','cbb85ce5-c181-4962-9ce4-021b22734297',NULL,NULL,NULL,NULL)
 ON DUPLICATE KEY UPDATE
   property_value=VALUES(property_value);
 
 INSERT INTO global_property
-VALUES ('openhie-client.endpoint.pix.port','8989','Indicates the port on which PIX messages should be routed','2b889f3c-c807-4800-997d-62a14db36a8f',NULL,NULL,NULL,NULL)
+VALUES ('openhie-client.endpoint.pix.port','3600','Indicates the port on which PIX messages should be routed','2b889f3c-c807-4800-997d-62a14db36a8f',NULL,NULL,NULL,NULL)
 ON DUPLICATE KEY UPDATE
   property_value=VALUES(property_value);
 
