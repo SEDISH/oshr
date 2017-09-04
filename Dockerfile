@@ -78,8 +78,8 @@ RUN curl -L "https://s3.amazonaws.com/openshr/openmrs.sql.gz" \
 
 ADD openshr-configuration.sql openshr-configuration.sql
 
-ADD run.sh /root/run.sh
-RUN chmod +x /root/run.sh
+ADD cmd.sh /root/cmd.sh
+RUN chmod +x /root/cmd.sh
 
 
 # Expose the openmrs directory as a volume
@@ -90,4 +90,4 @@ ADD setenv.sh.tmpl "${CATALINA_HOME}/bin/setenv.sh.tmpl"
 
 
 # Run openmrs using dockerize
-CMD ["dockerize","-template","/usr/local/tomcat/bin/setenv.sh.tmpl:/usr/local/tomcat/bin/setenv.sh","-template","/usr/local/tomcat/openmrs-runtime.properties.tmpl:/usr/local/tomcat/openmrs-runtime.properties","-wait","tcp://openmrs-mysql-db:3306","-timeout","200s","/root/run.sh", "run"]
+CMD ["dockerize","-template","/usr/local/tomcat/bin/setenv.sh.tmpl:/usr/local/tomcat/bin/setenv.sh","-template","/usr/local/tomcat/openmrs-runtime.properties.tmpl:/usr/local/tomcat/openmrs-runtime.properties","-wait","tcp://openmrs-mysql-db:3306","-timeout","200s","/root/cmd.sh", "run"]
