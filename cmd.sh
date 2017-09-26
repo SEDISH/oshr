@@ -38,6 +38,9 @@ else
 		echo "Create database openmrs from file < openmrs.sql"
 		mysql -u root -pshr openmrs < openmrs.sql
 
+		echo "Load concepts to openmrs database from file < concepts.sql"
+		mysql -u root -pshr openmrs < concepts.sql
+
 		echo "Update database openmrs with SHR configuration from file < openshr-configuration.sql"
 		mysql -u root -pshr openmrs < openshr-configuration.sql
 
