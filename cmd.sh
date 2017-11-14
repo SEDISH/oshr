@@ -7,6 +7,8 @@ USERADD=/usr/sbin/useradd
 ADDGROUP=/usr/sbin/addgroup
 ADDUSER=/usr/sbin/adduser
 
+locations_file=$(find . -name locations.sql | wc -l)
+
 if ! getent group $USERNAME >/dev/null; then
     	echo "Creating group $USERNAME"
     	$ADDGROUP --quiet --system $USERNAME
@@ -40,6 +42,13 @@ else
 
 		echo "Load concepts to openmrs database from file < concepts.sql"
 		mysql -u root -pshr openmrs < concepts.sql
+
+		if [[ $locations_file==1 ]]; then
+			echo "Load locations to openmrs database from file < locations.sql"
+			mysql -u root -pshr openmrs < locations.sql
+		else
+			echo "Add locations.sql file to this direcatory to load locations into SHR database"
+		fi
 
 		echo "Update database openmrs with SHR configuration from file < openshr-configuration.sql"
 		mysql -u root -pshr openmrs < openshr-configuration.sql
