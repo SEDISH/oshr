@@ -64,9 +64,9 @@ RUN curl -L ${OPENMRS_PLATFORM_URL} \
 ADD modules/webservices.rest-2.12.omod ${TEMP_MODULES}/webservices.rest-2.12.omod
 ADD modules/uiframework-omod-3.4.omod ${TEMP_MODULES}/uiframework-omod-3.4.omod
 
-ADD modules/shr-atna-1.0.0.omod ${TEMP_MODULES}/shr-atna-1.0.0.omod
-ADD modules/shr-contenthandler-3.0.0.omod ${TEMP_MODULES}/shr-contenthandler-3.0.0.omod
-ADD modules/xds-b-repository-1.0.0.omod ${TEMP_MODULES}/xds-b-repository-1.0.0.omod
+ADD modules/shr-atna-1.0.1-SNAPSHOT.omod ${TEMP_MODULES}/shr-atna-1.0.1-SNAPSHOT.omod
+ADD modules/shr-contenthandler-3.0.1-SNAPSHOT.omod ${TEMP_MODULES}/shr-contenthandler-3.0.1-SNAPSHOT.omod
+ADD modules/xds-b-repository-1.1.1-SNAPSHOT.omod ${TEMP_MODULES}/xds-b-repository-1.1.1-SNAPSHOT.omod
 ADD modules/shr-cdahandler-0.6.0.omod ${TEMP_MODULES}/shr-cdahandler-0.6.0.omod
 ADD modules/shr-odd-0.5.1.omod ${TEMP_MODULES}/shr-odd-0.5.1.omod
 ADD modules/openhie-client-0.1-SNAPSHOT.omod ${TEMP_MODULES}/openhie-client-0.1-SNAPSHOT.omod
@@ -77,7 +77,7 @@ RUN curl -L "https://s3.amazonaws.com/openshr/openmrs.sql.gz" \
     && gunzip openmrs.sql.gz
 
 ADD openshr-configuration.sql openshr-configuration.sql
-COPY concepts.sql locations.sql* /usr/local/tomcat
+COPY concepts.sql shrdata.sql* /usr/local/tomcat
 
 ADD cmd.sh /root/cmd.sh
 RUN chmod +x /root/cmd.sh
@@ -88,7 +88,6 @@ VOLUME /root/.OpenMRS/
 
 ADD openmrs-runtime.properties.tmpl "${CATALINA_HOME}/openmrs-runtime.properties.tmpl"
 ADD setenv.sh.tmpl "${CATALINA_HOME}/bin/setenv.sh.tmpl"
-
 
 # Run openmrs using dockerize
 CMD ["dockerize","-template","/usr/local/tomcat/bin/setenv.sh.tmpl:/usr/local/tomcat/bin/setenv.sh","-template","/usr/local/tomcat/openmrs-runtime.properties.tmpl:/usr/local/tomcat/openmrs-runtime.properties","-wait","tcp://openmrs-mysql-db:3306","-timeout","200s","/root/cmd.sh", "run"]
