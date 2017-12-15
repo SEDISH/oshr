@@ -77,7 +77,7 @@ RUN curl -L "https://s3.amazonaws.com/openshr/openmrs.sql.gz" \
     && gunzip openmrs.sql.gz
 
 ADD openshr-configuration.sql openshr-configuration.sql
-COPY concepts.sql shrdata.sql* /usr/local/tomcat
+COPY concepts.sql shrdata.sql* /usr/local/tomcat/
 
 ADD cmd.sh /root/cmd.sh
 RUN chmod +x /root/cmd.sh
