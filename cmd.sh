@@ -43,7 +43,7 @@ else
 		echo "Load concepts to openmrs database from file < concepts.sql"
 		mysql -u root -pshr openmrs < concepts.sql
 
-		if [[ $data_file==1 ]]; then
+		if [ $data_file -eq 1 ]; then
 			echo "Load data to openmrs database from file < shrdata.sql"
 			mysql -u root -pshr openmrs < shrdata.sql
 		else
