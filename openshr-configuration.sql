@@ -7,8 +7,7 @@
 --
 
 INSERT IGNORE INTO patient_identifier_type (name, description, format, check_digit, creator, date_created, required, format_description, validator, location_behavior, retired, retired_by, date_retired, retire_reason, uuid, uniqueness_behavior)
-VALUES ('ECID','ECID description',NULL,'0','1','2017-05-25 11:43:24','0',NULL,NULL,NULL,'0',NULL,NULL,NULL,'dd3037f0-0653-4ed2-8999-18e1bbdfae24',NULL);
-
+VALUES ('ECID', "Code referencing a patient's record in the SEDISH Master Person Index (Enterprise Client ID)",NULL,'0','1','2017-05-25 11:43:24','0',NULL,NULL,NULL,'0',NULL,NULL,NULL,'f54ed6b9-f5b9-4fd5-a588-8f7561a78401',NULL);
 --
 -- OpenSHR Configuration
 --
