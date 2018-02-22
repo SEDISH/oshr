@@ -77,6 +77,40 @@ VALUES ('shr.id.root', '2.16.840.1.113883.4.56', 'Identifies the root which shou
 ON DUPLICATE KEY UPDATE
   property_value=VALUES(property_value);
 
+INSERT INTO global_property
+VALUES ('shr.id.epidRoot', '1.2.3.4.5.10', 'Identifies the root of jurisdictional identifiers to use when creating/looking for providers', '674b0639-4911-42cd-94b0-14660b8c4eb0', NULL, NULL, NULL, NULL)
+ON DUPLICATE KEY UPDATE
+  property_value=VALUES(property_value);
+
+INSERT INTO global_property
+VALUES ('shr-cdahandler.id.format', '%2$s', 'Identifies the string representation of instance identifier from the CDA document. %1$s = Root (or domain) and %2$s = Extension (or identifier)', '97ae6d5c-f991-422e-bcfd-1133bcbbe864', NULL, NULL, NULL, NULL)
+ON DUPLICATE KEY UPDATE
+  property_value=VALUES(property_value);
+
+INSERT INTO global_property
+VALUES ('xds-b-repository.local_patient_identifierTypeMap.iSantePlus ID', '05a29f94-c0ed-11e2-94be-8c13b969e334:2.25.71280592878078638113873461180761116318:PI', ' ', '593e4844-03be-48c9-bcc3-c734096d129d', NULL, NULL, NULL, NULL)
+ON DUPLICATE KEY UPDATE
+  property_value=VALUES(property_value);
+
+INSERT INTO global_property
+VALUES ('xds-b-repository.local_patient_identifierTypeMap.ECID', 'f54ed6b9-f5b9-4fd5-a588-8f7561a78401:2.16.840.1.113883.4.56:NI', ' ', '822d6ca6-190b-46e8-a671-1c1837372e10', NULL, NULL, NULL, NULL)
+ON DUPLICATE KEY UPDATE
+  property_value=VALUES(property_value);
+
+INSERT INTO global_property
+VALUES ('xds-b-repository.local_patient_identifierTypeMap.Code ST', 'd059f6d0-9e42-4760-8de1-8316b48bc5f1:2.25.276946543544871160225835991160192746993:PI', ' ', 'c41aaa47-04ac-45c4-9f44-cb16abf2a274', NULL, NULL, NULL, NULL)
+ON DUPLICATE KEY UPDATE
+  property_value=VALUES(property_value);
+
+INSERT INTO global_property
+VALUES ('xds-b-repository.local_patient_identifierTypeMap.Code National', '9fb4533d-4fd5-4276-875b-2ab41597f5dd:2.25.212283553061960040061731875660599129565:PI', ' ', 'a50ebc7a-6f39-4028-8111-3b2a3338473d', NULL, NULL, NULL, NULL)
+ON DUPLICATE KEY UPDATE
+  property_value=VALUES(property_value);
+
+INSERT INTO global_property
+VALUES ('xds-b-repository.local_patient_identifierTypeMap.Biometrics Reference Code', 'e26ca279-8f57-44a5-9ed8-8cc16e90e559:2.25.300969590489438061583573695579607328089:NI', ' ', '0b6cae9a-cd6b-483c-870f-5af94428ac0f', NULL, NULL, NULL, NULL)
+ON DUPLICATE KEY UPDATE
+  property_value=VALUES(property_value);
 
 INSERT INTO global_property
 VALUES ('layout.address.format','<org.openmrs.layout.web.address.AddressTemplate>
