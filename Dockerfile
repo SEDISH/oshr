@@ -8,7 +8,7 @@ FROM uwitech/ohie-base
 
 # Install dependencies
 RUN apt-get update && \
-apt-get install -y git build-essential curl wget software-properties-common openjdk-7-jre
+apt-get install -y git build-essential curl wget software-properties-common openjdk-7-jre mysql-client
 
 # Install Tomcat
 ENV CATALINA_HOME /usr/local/tomcat
@@ -42,10 +42,6 @@ RUN set -x \
 ENV DOCKERIZE_VERSION v0.2.0
 RUN curl -L "https://github.com/jwilder/dockerize/releases/download/${DOCKERIZE_VERSION}/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz" -o "/tmp/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz" \
     && tar -C /usr/local/bin -xzvf "/tmp/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz"
-
-
-# Install database clients
-RUN apt-get update && apt-get install -y mysql-client 
 
 
 # Install OpenMRS
