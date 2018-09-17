@@ -8,6 +8,9 @@ FROM uwitech/ohie-base
 
 # Install dependencies
 RUN apt-get update && \
+apt-get install -y software-properties-common
+RUN add-apt-repository ppa:openjdk-r/ppa && \
+apt-get update && \
 apt-get install -y git build-essential curl wget software-properties-common openjdk-7-jre mysql-client
 
 # Install Tomcat
@@ -52,7 +55,7 @@ ENV TEMP_MODULES /root/temp/modules
 
 RUN curl -L ${OPENMRS_PLATFORM_URL} \
          -o ${CATALINA_HOME}/webapps/openmrs.war \
-    && mkdir -p $TEMP_MODULES 
+    && mkdir -p $TEMP_MODULES
 
 
 # Load the SHR OpenMRS modules
