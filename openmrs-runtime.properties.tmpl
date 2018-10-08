@@ -1,4 +1,4 @@
-connection.url=jdbc:mysql://{{ .Env.MYSQL_HOST }}:{{ .Env.MYSQL_PORT }}/{{ .Env.OPENMRS_DATABASE }}?autoReconnect=true&sessionVariables=default_storage_engine=InnoDB&useUnicode=true&characterEncoding=UTF-8
+connection.url=jdbc:mysql://{{ .Env.MYSQL_HOST }}:{{ .Env.MYSQL_PORT }}/{{ .Env.OPENMRS_DATABASE }}?autoReconnect=true&default_storage_engine=InnoDB&useUnicode=true&characterEncoding=UTF-8
 module.allow_web_admin=true
 connection.username={{ .Env.MYSQL_USER }}
 auto_update_database=true
