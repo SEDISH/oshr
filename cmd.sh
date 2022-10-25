@@ -29,7 +29,7 @@ else
 	cp /root/temp/modules/*.omod $OPENMRS_MODULES
 	echo "Modules copied."
 
-	DB=`mysql --ssl-mode=DISABLED -u root -p ${MYSQL_ROOT_PASSWORD} --skip-column-names -e "SHOW DATABASES LIKE '${OPENMRS_DATABASE}'"`
+	DB=`mysql --ssl-mode=DISABLED -u root -p${MYSQL_ROOT_PASSWORD} --skip-column-names -e "SHOW DATABASES LIKE '${OPENMRS_DATABASE}'"`
 	if [ "$DB" != "${OPENMRS_DATABASE}" ]; then
 		echo "# Init database for OpenMRS #"
 
