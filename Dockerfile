@@ -52,4 +52,5 @@ ADD openmrs-runtime.properties.tmpl "${CATALINA_HOME}/openmrs-runtime.properties
 ADD setenv.sh.tmpl "${CATALINA_HOME}/bin/setenv.sh.tmpl"
 
 # Run openmrs using dockerize
-CMD ["dockerize","-template","/usr/local/tomcat/bin/setenv.sh.tmpl:/usr/local/tomcat/bin/setenv.sh","-template","/usr/local/tomcat/openmrs-runtime.properties.tmpl:/usr/local/tomcat/openmrs-runtime.properties","-wait","tcp://${MYSQL_HOST}:${MYSQL_PORT}","-timeout","200s","/root/cmd.sh", "run"]
+ENTRYPOINT dockerize -template /usr/local/tomcat/bin/setenv.sh.tmpl:/usr/local/tomcat/bin/setenv.sh -template /usr/local/tomcat/openmrs-runtime.properties.tmpl:/usr/local/tomcat/openmrs-runtime.properties -wait tcp://${MYSQL_HOST}:${MYSQL_PORT} -timeout 200s /root/cmd.sh run
+
