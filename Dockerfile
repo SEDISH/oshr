@@ -5,6 +5,9 @@
 
 FROM tomcat:8.5-jdk8-adoptopenjdk-hotspot
 
+# Install MySQL client
+RUN apt-get update && apt-get install -y git build-essential curl wget mysql-client
+
 # Install dockerize
 ENV DOCKERIZE_VERSION v0.2.0
 RUN curl -L "https://github.com/jwilder/dockerize/releases/download/${DOCKERIZE_VERSION}/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz" -o "/tmp/dockerize-linux-amd64-${DOCKERIZE_VERSION}.tar.gz" \
@@ -52,4 +55,5 @@ ADD openmrs-runtime.properties.tmpl "${CATALINA_HOME}/openmrs-runtime.properties
 ADD setenv.sh.tmpl "${CATALINA_HOME}/bin/setenv.sh.tmpl"
 
 # Run openmrs using dockerize
-CMD ["dockerize","-template","/usr/local/tomcat/bin/setenv.sh.tmpl:/usr/local/tomcat/bin/setenv.sh","-template","/usr/local/tomcat/openmrs-runtime.properties.tmpl:/usr/local/tomcat/openmrs-runtime.properties","-wait","tcp://openmrs-mysql-db:3306","-timeout","200s","/root/cmd.sh", "run"]
+ENTRYPOINT dockerize -template /usr/local/tomcat/bin/setenv.sh.tmpl:/usr/local/tomcat/bin/setenv.sh -template /usr/local/tomcat/openmrs-runtime.properties.tmpl:/usr/local/tomcat/openmrs-runtime.properties -wait tcp://$MYSQL_HOST:$MYSQL_PORT -timeout 200s /root/cmd.sh run
+
