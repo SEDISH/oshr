@@ -64,4 +64,5 @@ fi
 
 
 echo "# Start TOMCAT #"
+export CATALINA_OPTS="$CATALINA_OPTS -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=1048"
 catalina.sh run
