@@ -1,1 +1,3 @@
 export JAVA_OPTS="{{ default .Env.JAVA_OPTS "-Dfile.encoding=UTF-8 -server -Xms512m -Xmx1024m -XX:PermSize=512m -XX:MaxPermSize=1024m" }}"
+export MYSQL_HOST={{ .Env.MYSQL_HOST }}
+export MYSQL_PORT={{ .Env.MYSQL_PORT }}
