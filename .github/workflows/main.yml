@@ -2,11 +2,11 @@ name: Build Docker Image
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main,test]
   release:
     types: [published]
   push:
-    branches: [main]
+    branches: [main,test]
   workflow_dispatch:
 
 env:
